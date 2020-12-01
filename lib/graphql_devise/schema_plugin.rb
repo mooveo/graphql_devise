@@ -26,7 +26,8 @@ module GraphqlDevise
 
       field = traced_field(trace_data)
       provided_value = authenticate_option(field, trace_data)
-      context = set_current_resource(context_from_data(trace_data))
+      context = context_from_data(trace_data)
+      context = set_current_resource(context) if context[:current_resource].nil?
 
       if !provided_value.nil?
         raise_on_missing_resource(context, field) if provided_value
